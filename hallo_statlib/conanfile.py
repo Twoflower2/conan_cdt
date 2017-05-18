@@ -1,0 +1,58 @@
+from conans import ConanFile
+
+class HelloStatlibConan(ConanFile):
+    name = "hello_statlib"
+    version = "1.0.0"
+    description = "Hello static library http://where-documentation-located"
+    url = "https://github.com/Twoflower2/conan_cdt"
+    license = "BSD"
+    author = "Twoflower2"
+    settings = "os", "compiler", "build_type"
+    exports = "inc*"
+    generators = "txt"
+
+    def build(self):
+
+        # ***************************************************************************************
+        # Calls eclipse with 4 arguments as defined per list below:
+        #    argument list = WORK_SPACE value as 1st argument
+        #                    PROJECT_DIR value as 2nd argument
+        #                    PROJECT_NAME value as 3rd argument
+        #                    BUILD_TYPE option as 4th argument as defined in project
+        # ***************************************************************************************
+        #
+        # (In order to see what happens: add option -debug to eclipse cmd)
+        #
+        # Using a release of Eclipse 3.5 + CDT 6, you can import, build and clean-build projects and the workspace using the following options sent to Eclipse at the command line:
+        #
+        # eclipse -nosplash
+        #         -application org.eclipse.cdt.managedbuilder.core.headlessbuild
+        #         -data {[uri:/]/path/to/workspace}
+        #         -import {[uri:/]/path/to/project}
+        #         -build {project_name | all}
+        #         -cleanBuild {projec_name | all}
+        #         %ECLIPSE_EXTENDED_ARGS%
+        #
+        # The '-application' switch instructs Eclipse to run the CDT headless builder rather than starting the workbench. The other switches can be used individually or together.
+        # This means you can checkout a project using a shell script of your own, '-import' it into a workspace, and '-build' it using the Managedbuilder's headless builder.
+        #
+        # Use the '-data' switch to specify the workspace to use, which can be an empty temporary directory, see the runtime documentation for other switches supported by the platform runtime
+        #      http://help.eclipse.org/indigo/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/misc/runtime-options.html
+        #
+        # ***************************************************************************************
+
+        WORK_SPACE = "../workspace"
+        PROJECT_DIR = "../workspace/hello_statlib"
+        PROJECT_NAME = "hello_statlib"
+        BUILD_TYPE = "Debug"
+        
+        cmd = "eclipse -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data " + WORK_SPACE + " -import " + PROJECT_DIR + " " + PROJECT_NAME + "/" + BUILD_TYPE
+        self.run("cmd")
+
+    def package(self):
+        self.copy(pattern="*.a", dst="bin", src="bin")
+        self.copy(pattern="*.h", dst="inc", src="inc")
+
+    # def env_info(self):
+    #     self.env_info.path.append("C:\\Program Files\\Java.x\\jdk1.7.0_25\\bin")  # Append "ANOTHER VALUE" to the path variable
+    #     self.env_info.path.append("C:\\Program Files\\Java.x\\jdk1.7.0_25\\bin")  # Append "ANOTHER VALUE" to the path variable
