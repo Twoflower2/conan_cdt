@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>hello</name>
+	<name>hello_statlib</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,14 +26,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>hello.h</name>
+			<name>hello.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/hallo/inc/hello.h</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/src/hello.cpp</locationURI>
 		</link>
 		<link>
-			<name>main.cpp</name>
+			<name>hello.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/hallo/src/main.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/inc/hello.h</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

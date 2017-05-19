@@ -9,7 +9,7 @@ class HelloConan(ConanFile):
     license = "BSD"
     author = "Twoflower2"
     settings = "os", "compiler", "build_type"
-    exports = "inc*"
+    exports = "bin*"
     generators = "txt"
     requires = "hello_statlib/1.0.0@twoflower2/testing" # comma separated list of requirements: <NAME>/<VERSION>@<USER>/<CHANNEL>
 
@@ -48,26 +48,21 @@ class HelloConan(ConanFile):
         #
         # ***************************************************************************************
 
-        WORK_SPACE = "../workspace"
-        PROJECT_DIR = "../workspace/hello"
-        PROJECT_NAME = "hello"
-        BUILD_TYPE = "Debug"
+        WORK_SPACE = "workspace"
+        PROJECT_DIR = "workspace/hello"
+        PROJECT_NAME = "hello" #This is important as var for build per project_name, because we have up to 42 project_name 's per .project file
+        BUILD_TYPE = str(self.settings.build_type)
         
         cmd = "eclipse -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data " + WORK_SPACE + " -import " + PROJECT_DIR + " " + PROJECT_NAME + "/" + BUILD_TYPE
-        self.run("cmd")
+        self.run(cmd)
 
     def package(self):
         self.copy(pattern="*.exe", dst="bin", src="bin")
 
-        # conandir = self.conanfile_directory
-        # hdir = "../../inc/"
-        #    self.copy("*.lib", dst="lib", src="lib")
-        #    self.copy("*.a", dst="lib", src="lib")
+    def package_info(self):
+        self.cpp_info.includedirs= ["inc"]
+        self.cpp_info.libdirs = ["bin"]
 
-
-        #def package_info(self):
-            #self.cpp_info. = ['inc']  # Ordered list of include paths
-
-    def env_info(self):
-        self.env_info.path.append("C:\\Program Files\\Java.x\\jdk1.7.0_25\\bin")  # Append "ANOTHER VALUE" to the path variable
+    #   def env_info(self):
+    #       self.env_info.path.append("C:\\Program Files\\Java.x\\jdk1.7.0_25\\bin")  # Append "ANOTHER VALUE" to the path variable
 

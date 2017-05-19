@@ -8,7 +8,7 @@ class HelloStatlibConan(ConanFile):
     license = "BSD"
     author = "Twoflower2"
     settings = "os", "compiler", "build_type"
-    exports = "inc*"
+    exports_sources = "inc*", "src*", "workspace*"
     generators = "txt"
 
     def build(self):
@@ -41,13 +41,17 @@ class HelloStatlibConan(ConanFile):
         #
         # ***************************************************************************************
 
-        WORK_SPACE = "../workspace"
-        PROJECT_DIR = "../workspace/hello_statlib"
-        PROJECT_NAME = "hello_statlib"
-        BUILD_TYPE = "Debug"
+        WORK_SPACE = "workspace"
+        PROJECT_DIR = "workspace/hello_statlib"
+        PROJECT_NAME = "hello_statlib" #This is important as var for build per project_name, because we have up to 42 project_name 's per .project file
+        BUILD_TYPE = str(self.settings.build_type)
         
         cmd = "eclipse -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data " + WORK_SPACE + " -import " + PROJECT_DIR + " " + PROJECT_NAME + "/" + BUILD_TYPE
-        self.run("cmd")
+        self.run(cmd)
+
+    def package_info(self):
+        self.cpp_info.includedirs= ["inc"]
+        self.cpp_info.libdirs = ["bin"]
 
     def package(self):
         self.copy(pattern="*.a", dst="bin", src="bin")
