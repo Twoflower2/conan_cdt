@@ -18,11 +18,11 @@ Conan example of Eclipse CDT projects by running headless Eclipse from the Conan
 * *hello.exe* will be build  by Eclipse in **bin**
 
 ## Work-flow on high-level per project
-### hello_statlib
+### hello_lib
 * Project hello_statlib runs in the *build()* method as headless Eclipse and create *hello_statlib.a* in the **bin** directory.
 * Conan have to package the lib *hello_statlib.a* and header *hello.h* in the **bin** and **inc** directories to remote store.
 
-### hello
+### hello_appl
 * Conan have to place the lib *hello_statlib.a* and header *hello.h* in the **lib** and **inc** directories from the remote store.
 * Project hello runs in the *build()* method as headless Eclipse and create the appl. *hello.exe* in the **bin** directory.
 * Conan have to package the *hello.exe* to remote store.
