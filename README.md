@@ -15,7 +15,7 @@ hello_lib
 * *hello_statlib.a* static library artefact will be build by Eclipse in **bin**.
 * *hello.h* is in **inc**
 * *hello.cpp* is in **src**
-* The Eclipse project files are under directory **workspace/hello_statlib**.
+* The Eclipse project(1..n) files are under directory **workspace/hello_statlib**.
 
 
 
@@ -29,12 +29,12 @@ hello_appl
 ├───workspace
 │   └───hello
 ```
-* *conanfile.py* in root directory **hello**
+* *conanfile.py* in root directory **hello_appl**
 * *hello.exe* will be build  by Eclipse in **bin**
 * *hello.h* to be place by conan in **inc**
 * *hello_statlib.a* static library artefact to be place by Conan in **lib**.
 * *main.cpp* is in **src**
-* The Eclipse project files are under directory **workspace/hello**.
+* The Eclipse project(1..n) files are under directory **workspace/hello**.
 
 ## Work-flow on high-level per project
 ### hello_lib
