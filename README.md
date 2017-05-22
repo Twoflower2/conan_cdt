@@ -3,19 +3,38 @@ Conan example of Eclipse CDT projects by running headless Eclipse from the Conan
 
 
 ## Library Layout in project root directory: hello_lib
+```
+hello_lib
+├───bin
+├───inc
+├───src
+├───workspace
+│   └───hello_statlib
+```
 * The Eclipse project files are under directory **workspace/hello_statlib**.
-* *conanfile.py* in root directory **hello_statlib**
+* *conanfile.py* in root directory **hello_lib**
+* *hello_statlib.a* static library artefact will be build by Eclipse in **bin**.
 * *hello.h* is in **inc**
 * *hello.cpp* is in **src**
-* *hello_statlib.a* static library artefact will be build by Eclipse in **bin**.
+
+
 
 ## Application Layout in project root directory: hello_appl
+```
+hello_appl
+├───bin
+├───inc
+├───lib
+├───src
+├───workspace
+│   └───hello
+```
 * The Eclipse project files are under directory **workspace/hello**.
 * *conanfile.py* in root directory **hello**
-* *hello.h* to be place by conan in **inc**
-* *main.cpp* is in **src**
-* *hello_statlib.a* static library artefact to be place by Conan in **lib**.
 * *hello.exe* will be build  by Eclipse in **bin**
+* *hello.h* to be place by conan in **inc**
+* *hello_statlib.a* static library artefact to be place by Conan in **lib**.
+* *main.cpp* is in **src**
 
 ## Work-flow on high-level per project
 ### hello_lib
