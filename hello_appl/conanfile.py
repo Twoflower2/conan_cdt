@@ -49,11 +49,12 @@ class HelloConan(ConanFile):
         # ***************************************************************************************
 
         WORK_SPACE = "workspace"
-        PROJECT_DIR = "workspace/hello"
-        PROJECT_NAME = "hello" #This is important as var for build per project_name, because we have up to 42 project_name 's per .project file
+        PROJECT_NAME = "hello" #Just set here as explicit example only. This is important as var for build per project_name, because we have up to 42 project_name 's each having a .cproject file
+        PROJECT_DIR = "workspace/" + PROJECT_NAME
+        self.settings.build_type = "Debug" #Just set here as explicit example only
         BUILD_TYPE = str(self.settings.build_type)
         
-        cmd = "eclipse -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data " + WORK_SPACE + " -import " + PROJECT_DIR + " " + PROJECT_NAME + "/" + BUILD_TYPE
+        cmd = "eclipse -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data " + WORK_SPACE + " -import " + PROJECT_DIR + " -cleanBuild " + PROJECT_NAME + "/" + BUILD_TYPE
         self.run(cmd)
 
     def package(self):
