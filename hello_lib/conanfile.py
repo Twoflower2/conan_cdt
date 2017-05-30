@@ -48,7 +48,9 @@ class HelloStatlibConan(ConanFile):
         BUILD_TYPE = str(self.settings.build_type)
         
         cmd = "eclipse -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data " + WORK_SPACE + " -import " + PROJECT_DIR + " -cleanBuild " + PROJECT_NAME + "/" + BUILD_TYPE
+        print("\nBuilding with command line cmd:\n" + cmd)
         self.run(cmd)
+        print("\nBuild Successful")
 
     def package_info(self):
         self.cpp_info.includedirs= ["inc"]
