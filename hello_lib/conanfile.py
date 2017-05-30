@@ -12,7 +12,8 @@ class HelloStatlibConan(ConanFile):
     generators = "txt"
 
     def build(self):
-
+        os.makedirs("bin")
+        
         # ***************************************************************************************
         # Calls eclipse with 4 arguments as defined per list below:
         #    argument list = WORK_SPACE value as 1st argument
