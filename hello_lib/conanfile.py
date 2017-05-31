@@ -29,10 +29,25 @@ class HelloStatlibConan(ConanFile):
         # eclipse -nosplash
         #         -application org.eclipse.cdt.managedbuilder.core.headlessbuild
         #         -data {[uri:/]/path/to/workspace}
-        #         -import {[uri:/]/path/to/project}
-        #         -build {project_name | all}
-        #         -cleanBuild {projec_name | all}
+        #         -import     {[uri:/]/path/to/project}
+        #         -importAll  {[uri:/]/path/to/projectTreeURI} Import all projects under URI
+        #         -build      {project_name_reg_ex{/config_reg_ex} | all}
+        #         -cleanBuild {project_name_reg_ex{/config_reg_ex} | all}
+        #         -no-indexer Disable indexer
+        #         -I          {include_path} additional include_path to add to tools
+        #         -include    {include_file} additional include_file to pass to tools
+        #         -D          {prepoc_define} addition preprocessor defines to pass to the tools
+        #         -E          {var=value} replace/add value to environment variable when running all tools
+        #         -Ea         {var=value} append value to environment variable when running all tools
+        #         -Ep         {var=value} prepend value to environment variable when running all tools
+        #         -Er         {var} remove/unset the given environment variable
+        #         -T          {toolid} {optionid=value} replace a tool option value in each configuration built
+        #         -Ta         {toolid} {optionid=value} append to a tool option value in each configuration built
+        #         -Tp         {toolid} {optionid=value} prepend to a tool option value in each configuration built
+        #         -Tr         {toolid} {optionid=value} remove a tool option value in each configuration built
+        #                     Tool option values are parsed as a string, comma separated list of strings or a boolean based on the option's type
         #         %ECLIPSE_EXTENDED_ARGS%
+        #
         #
         # The '-application' switch instructs Eclipse to run the CDT headless builder rather than starting the workbench. The other switches can be used individually or together.
         # This means you can checkout a project using a shell script of your own, '-import' it into a workspace, and '-build' it using the Managedbuilder's headless builder.
@@ -49,13 +64,14 @@ class HelloStatlibConan(ConanFile):
         BUILD_TYPE = str(self.settings.build_type)
         
         cmd = "eclipse -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data " + WORK_SPACE + " -import " + PROJECT_DIR + " -cleanBuild " + PROJECT_NAME + "/" + BUILD_TYPE
-        print("\nBuilding with command line cmd:\n" + cmd)
+        self.output.info("\nBuilding with command line cmd:\n" + cmd)
         self.run(cmd)
-        print("\nBuild Successful")
+        self.output.info("\nBuild Successful")
 
     def package_info(self):
         self.cpp_info.includedirs= ["inc"]
         self.cpp_info.libdirs = ["bin"]
+        self.cpp_info.libs = ["hello_statlib"]
 
     def package(self):
         self.copy(pattern="*.a", dst="bin", src="bin")

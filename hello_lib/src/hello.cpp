@@ -1,6 +1,10 @@
-#include <iostream>
 #include "hello.h"
+#include <iostream>
 
 void hello(){
-	std::cout << "Hello World!\n";
+#ifndef NDEBUG
+	std::cout << "\nHello World Release!\n";
+#else
+	std::cout << "\nHello World Debug!\n";
+#endif
 }
